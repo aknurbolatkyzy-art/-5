@@ -1,0 +1,12 @@
+import numpy as np
+import pandas as pd
+
+total_sum = 0.0
+total_count = 0
+
+for chunk in pd.read_csv("data/big.csv", chunksize=2000):
+    arr = chunk["x"].to_numpy(dtype=np.float64)
+    total_sum += arr.sum()
+    total_count += len(arr)
+
+print("Mean (float64, chunks):", total_sum / total_count)
