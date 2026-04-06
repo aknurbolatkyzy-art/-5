@@ -1,0 +1,13 @@
+import numpy as np
+import pandas as pd
+
+total_sum = np.float32(0)
+total_count = 0
+
+for chunk in pd.read_csv("data/big.csv", chunksize=2000):
+    arr = chunk["x"].to_numpy(dtype=np.float32)
+    total_sum += arr.sum()
+    total_count += len(arr)
+
+mean_f32 = float(total_sum) / total_count
+print("Mean (float32, chunks):", mean_f32)
